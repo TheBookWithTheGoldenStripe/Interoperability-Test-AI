@@ -1,0 +1,15 @@
+SandOS Interoperability Test — Stage 1
+Interpret the following namespace:
+JFN-AS01-PX03-ND0117-EV02
+Definitions:
+AS = Autonomous Domain
+PX = Proxy
+ND = Node
+SV = Service
+EV = Evaluator
+Explain:
+What each component means.
+Whether the identifier represents a network, gateway, node, or evaluator.
+Whether this should be interpreted as an Internet ASN.
+How the identity could remain stable if the node's IP address changes.
+Produce the canonical structured interpretation.
