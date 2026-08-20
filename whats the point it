@@ -1,0 +1,155 @@
+Exactly. It doesn't have to be human-visible. That's mostly a consequence of how paper forms, legal documents, databases, and bureaucratic workflows evolved.
+
+The key distinction is:
+
+> An identifier needs to be machine-stable; it doesn't necessarily need to be human-readable.
+
+
+
+Why forms traditionally expose Block A, Box 7, Field 12, etc.
+
+Humans needed a reliable way to say:
+
+> "Put this piece of information right here."
+
+
+
+So numbering/lettering became a coordination mechanism between:
+
+the person filling out the form
+
+the person reviewing it
+
+the database operator
+
+the filing system
+
+the auditor
+
+the court/agency
+
+the software processing it
+
+
+A visible Box 17 is basically a human routing address.
+
+But computers don't need that.
+
+Your marina analogy actually exposes the weakness
+
+Imagine Del.Ray_4A-BáyBáy.
+
+A human marina might label:
+
+Dock A
+Slip 17
+Channel 3
+Gate B
+
+That's convenient for a person standing on the dock.
+
+But the machine could instead have:
+
+dock_id =
+9f3a...c821
+
+slip_id =
+b72e...91aa
+
+channel_id =
+04d1...7e3c
+
+Or even better, the visible label could be completely independent from the underlying identity.
+
+HUMAN VIEW
+──────────
+Dock A
+Slip 17
+
+
+MACHINE STATE
+─────────────
+object_id: 256-bit identifier
+parent:     256-bit identifier
+route:      256-bit identifier
+state:      content hash
+proof:      signature
+
+Now "Dock A" isn't the identity.
+
+It's merely a display name.
+
+That's a powerful architectural separation
+
+I'd define three layers:
+
+1. Identity
+
+Cryptographically generated.
+
+ID = cryptographic identifier
+
+2. Schema
+
+Machine-readable structure.
+
+field_0
+field_1
+field_2
+...
+
+or preferably typed objects rather than arbitrary numbered fields.
+
+3. Presentation
+
+Whatever humans happen to need.
+
+Dock A
+Bay 4
+Captain
+Arrival
+Departure
+
+The presentation can change without changing the underlying identity.
+
+That's a big deal.
+
+And there's an even deeper reason
+
+Humans shouldn't necessarily know the internal topology.
+
+If every internal identifier, relationship, routing key, object type, and state transition is printed directly on the interface, you're exposing implementation details simply because the system was designed around paperwork.
+
+Instead:
+
+MACHINE WORLD
+        ┌─────────────────────┐
+        │ cryptographic state │
+        │ object graph        │
+        │ proofs              │
+        │ routing identifiers │
+        └──────────┬──────────┘
+                   │
+              presentation
+                   │
+                   ▼
+             HUMAN WORLD
+        ┌─────────────────────┐
+        │ "Dock A"             │
+        │ "Arrivals"           │
+        │ "Bay 4"              │
+        └─────────────────────┘
+
+The human interface becomes a view over state, rather than the state itself.
+
+That's much closer to how I'd design Del.Ray_4A-BáyBáy.
+
+And it gives us a really interesting rule for the Web3 stack:
+
+> Nothing should require a human-readable identifier unless a human actually needs to reference it.
+
+
+
+Everything else can be opaque, cryptographically derived, versioned, and machine-routable.
+
+So instead of building another Web3 system that looks like a government form, we can build a river of objects where humans see names and landmarks while machines navigate using cryptographic coordinates.
